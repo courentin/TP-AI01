@@ -6,16 +6,18 @@ void initialize(List *list) {
   list->tail = NULL;
 }
 
-void insert_begining_list(Lits *list, char *str) {
-
-}
-
 void display(List *list) {
-  if(list-> == NULL) {
+  if(list->head == NULL) {
     printf("EMPTY LIST\n");
   }
   Element *current = list->head;
-  while(list->tail != current) {
 
+  while(list->tail != current) {
+    if(current == NULL) {
+      printf("\n");
+    }
+    printf("%s", current->data);
+    current = current->next;
   }
+
 }

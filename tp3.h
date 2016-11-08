@@ -14,7 +14,7 @@ typedef struct List {
 
 void initialize(List *list);
 
-void insert_begining_list(Lits *list, char *str);
+void insert_begining_list(List *list, char *str);
 
 void display(List *list);
 
