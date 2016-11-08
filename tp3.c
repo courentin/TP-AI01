@@ -39,15 +39,16 @@ void initialize(List *list) {
 void display(List *list) {
   if(list->head == NULL) {
     printf("EMPTY LIST\n");
+    return;
   }
   Element *current = list->head;
 
   while(list->tail != current) {
-    if(current == NULL) {
+    if(current->data[0] == '\0') {
       printf("\n");
+    } else {
+      printf("%s", current->data);	
     }
-    printf("%s", current->data);
     current = current->next;
   }
-
 }
