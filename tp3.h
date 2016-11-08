@@ -1,3 +1,5 @@
+#ifndef TP3
+#define TP3
 #define N_MAX 5
 
 typedef struct Element {
@@ -9,3 +11,11 @@ typedef struct List {
   Element * head;
   Element * tail;
 }List;
+
+void initialize(List *list);
+
+void insert_begining_list(Lits *list, char *str);
+
+void display(List *list);
+
+#endif
