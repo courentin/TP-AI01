@@ -12,7 +12,9 @@ typedef struct List {
   Element * tail;
 }List;
 
-void initialize(List *list);
+List *initialize();
+
+List *create_list(char *str);
 
 void insert_begining_list(List *list, char *str);
 

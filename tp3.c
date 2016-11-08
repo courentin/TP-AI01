@@ -1,5 +1,6 @@
 #include "tp3.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
 void insert_empty_list(List *list, char *str){
@@ -33,13 +34,59 @@ void insert_empty_list(List *list, char *str){
 }
 */
 
-void insert_begining_list(List *list, char *str) {
-	
+/**
+ * Créer une List d'Elements à partir de str quelconque
+ */
+List * create_list(char *str) {
+	List * list = initialize();
+	Element *current = NULL, *old = NULL;
+
+	int i = 0;
+
+	while(str[i] != '\0') {
+		if(i % N_MAX == 0) {
+			old = current;
+			current = malloc(sizeof(Element));
+
+			if(i != 0)
+				old->next = current;
+			else
+			  list->head = current;
+		}
+		current->data[i % N_MAX] = str[i];
+		i++;
+	}
+	list->tail = current;
+
+	return list;
+}
+/**
+* 0 1 2 3 4 5 6 7 8
+*/
+
+Element *create_empty_element() {
+	Element *element = malloc(sizeof(Element));
+	element->data[0] = '\0';
+	element->next = NULL;
+
+	return element;
 }
 
-void initialize(List *list) {
+void insert_begining_list(List *list, char *str) {
+	List *new_list = create_list(str);
+	Element *empty_el = create_empty_element();
+
+	new_list->tail->next = empty_el;
+	empty_el->next = list->head;
+	list->head = new_list->head;
+}
+
+List* initialize() {
+	List *list = malloc(sizeof(List));
   list->head = NULL;
   list->tail = NULL;
+
+	return list;
 }
 
 void display(List *list) {
