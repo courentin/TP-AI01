@@ -89,6 +89,28 @@ List* initialize() {
 	return list;
 }
 
+int insert_after_position(List *list, char *str, int p) {
+	int current_p = 0, success = -1;
+	Element *current = list->head;
+
+	while(list->tail != current && success != 0) {
+
+		if(current->data[0] == '\0' && ++current_p == p) {
+				List *new_list = create_list(str);
+				Element *empty_el = create_empty_element();
+
+				empty_el->next = current->next;
+				current->next = new_list->head;
+				new_list->tail->next = empty_el;
+
+				success = 0;
+		}
+		current  = current->next;
+	}
+
+	return success;
+}
+
 void display(List *list) {
   if(list->head == NULL) {
     printf("EMPTY LIST\n");

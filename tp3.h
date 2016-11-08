@@ -18,6 +18,8 @@ List *create_list(char *str);
 
 void insert_begining_list(List *list, char *str);
 
+int insert_after_position(List *list, char *str, int p);
+
 void display(List *list);
 
 #endif
