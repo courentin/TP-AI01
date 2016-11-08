@@ -13,8 +13,19 @@ int main(int argc, char const *argv[]) {
 
   int aa = insert_after_position(list, "0000", 2);
   printf("%d\n", aa);
-
   display(list);
+
+  // #7
+  int comp1 = compare("1234", "1234");
+  int comp2 = compare("2234", "1234");
+  int comp3 = compare("1234", "2234");
+
+  if(comp1 == 0 && comp2 == 1 && comp3 == 2)
+    printf("[7] OK\n");
+  else
+    printf("[7] KO\n");
+
+    
 
   return 0;
 }

@@ -60,9 +60,6 @@ List * create_list(char *str) {
 
 	return list;
 }
-/**
-* 0 1 2 3 4 5 6 7 8
-*/
 
 Element *create_empty_element() {
 	Element *element = malloc(sizeof(Element));
@@ -109,6 +106,18 @@ int insert_after_position(List *list, char *str, int p) {
 	}
 
 	return success;
+}
+
+int compare(char *str1, char *str2) {
+	int int1 = atoi(str1);
+	int int2 = atoi(str2);
+	if(int1 > int2) {
+		return 1;
+	} else if(int2 > int1) {
+		return 2;
+	} else {
+		return 0;
+	}
 }
 
 void display(List *list) {
