@@ -18,8 +18,8 @@
   - [ ] #3 : ajouter un nombre à une certaine position dans la liste
   - [ ] #4 : supprimer un nombre d’une certaine position de la liste
   - [ ] #5 : trier la liste par ordre croissant
-  - [ ] #6 : afficher la liste
+  - [x] #6 : afficher la liste
   - [ ] #7 : détruire la liste toute entière
-  - [ ] #8 : quitter
+  - [x] #8 : quitter
 
 - [ ] Bonus : fonction sum
