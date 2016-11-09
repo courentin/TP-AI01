@@ -2,14 +2,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-char *askNumber() {
+void askNumber(char *input) {
   printf("Nombre à ajouter : ");
-
+  while(!scanf("%s", input)) {
+    printf("Erreur de saisie, ressaisir : ");
+  }
 }
 
 int main(int argc, char const *argv[]) {
   List *list = initialize();
   int quit = 0, choice;
+  char* input;
 
   while(quit != 1) {
     printf("Selectionner une action :\n");
@@ -32,10 +35,35 @@ int main(int argc, char const *argv[]) {
 
     switch (choice) {
       case 1:
-        //char *input;
+        askNumber(input);
+        if(is_empty_list(list)) {
+          insert_empty_list(list, input);
+        } else {
+          insert_begining_list(list, input);
+        }
+      break;
 
+      case 2:
+        askNumber(input);
+        if(is_empty_list(list)) {
+          insert_empty_list(list, input);
+        } else {
+          insert_end_list(list, input);
+        }
+      break;
 
-        //scanf("%s\n", );
+      case 3:
+        if(is_empty_list(list)) {
+          printf("Impossible, la liste est vide\n");
+        } else {
+          askNumber(input);
+          int position;
+          printf("Ajouter après la position : ");
+          scanf("%d", &position);
+          if(!insert_after_position(list, input, position)) {
+            printf("La position %d n'existe pas\n", position);
+          }
+        }
       break;
 
       case 6: // Est affiché à chaque itérations
@@ -50,8 +78,11 @@ int main(int argc, char const *argv[]) {
         return 1;
     }
 
-    if(quit != 1)
+    if(quit != 1) {
+      printf("-----------------\nLISTE :\n");
       display(list);
+      printf("-----------------\n");
+    }
   }
 
   return 0;

@@ -38,9 +38,8 @@ void insert_empty_list(List *list, char *str) {
 	List *new_list = create_list(str);
 	Element *empty_el = create_empty_element();
 
-	new_list->tail->next = empty_el;
-	empty_el->next = list->head;
 	list->head = new_list->head;
+	new_list->tail->next = empty_el;
 	list->tail = empty_el;
 }
 
@@ -119,20 +118,27 @@ int insert_after_position(List *list, char *str, int p) {
 	Element *current = list->head;
 
 	while(list->tail != current && success != 0) {
-
-		if(is_empty_el(current) && ++current_p == p) {
+		printf("empty ? : %d\n", is_empty_el(current));
+		printf("current_p ? : %d\n", current_p+1);
+		printf("p ? : %d\n", p);
+		if(is_empty_el(current->next) && ++current_p == p) {
 				List *new_list = create_list(str);
 				Element *empty_el = create_empty_element();
 
-				empty_el->next = current->next;
 				current->next = new_list->head;
 				new_list->tail->next = empty_el;
+				empty_el->next = current->next;
+				list->tail = empty_el;
 
 				// si on ajoute à la dernière place, modifier le tail
+				printf("JE PASSE ICI\n");
+				if(list->tail == current->next) {
+					printf("JE PASSE LÀ\n");
+				}
 
 				success = 0;
 		}
-		current  = current->next;
+		current = current->next;
 	}
 
 	return success;
@@ -166,4 +172,5 @@ void display(List *list) {
     }
     current = current->next;
   }
+	printf("\n");
 }
