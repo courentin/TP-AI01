@@ -71,6 +71,10 @@ List * create_list(char *str) {
 	return list;
 }
 
+int is_empty_list(List *list) {
+	return list->head == NULL && list->tail == NULL;
+}
+
 int is_empty_el(Element *element) {
 	return element->data[0] == '\0';
 }
@@ -123,6 +127,8 @@ int insert_after_position(List *list, char *str, int p) {
 				empty_el->next = current->next;
 				current->next = new_list->head;
 				new_list->tail->next = empty_el;
+
+				// si on ajoute à la dernière place, modifier le tail
 
 				success = 0;
 		}
@@ -182,10 +188,11 @@ void display(List *list) {
     return;
   }
   Element *current = list->head;
-
+	int i = 1;
+	printf("[%d] -> ", i);
   while(list->tail != current) {
     if(is_empty_el(current)) {
-      printf("\n");
+			printf("\n[%d] -> ", ++i);
     } else {
       printf("%s", current->data);
     }
