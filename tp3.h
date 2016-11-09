@@ -18,6 +18,8 @@ Element *create_empty_element();
 
 List *create_list(char *str);
 
+int is_empty_list(List *list);
+
 /**
  * Retourne 0 si l'element est un element vide, -1 sinon
  */
