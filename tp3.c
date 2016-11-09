@@ -150,38 +150,6 @@ int compare(char *str1, char *str2) {
 	}
 }
 
-int remove_el(List *list, int p) {
-	int success = -1;
-	/*
-	Element *current = list->head;
-
-	if(p == 1) {
-		list->head = list->head->next;
-		succes = 0;
-	} else {
-			while(list->tail != current && success != 0) {
-
-				if(current->next != NULL && current->next->data[0] == '\0' && ++current_p == p)
-					Element *before = current;
-
-					while(current->next != NULL && success != 0) {
-						current = current->next;
-						if(current->next->data[0] == '\0') {
-
-							succes = 0;
-						} else {
-							current = current->next;
-						}
-					}
-
-					before->next = current;
-				}
-			}
-	}
-	*/
-	return success;
-}
-
 void display(List *list) {
   if(list->head == NULL) {
     printf("EMPTY LIST\n");
