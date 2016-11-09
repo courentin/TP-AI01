@@ -37,6 +37,8 @@ void display(List *list);
 
 int compare(char *str1, char *str2);
 
+void insert_empty_list (List *list, char *str);
+
 Element *get_element_at_position(List *list, int p);
 
 #endif
