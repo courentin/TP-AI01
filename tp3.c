@@ -61,6 +61,10 @@ List * create_list(char *str) {
 	return list;
 }
 
+int is_empty_el(Element *element) {
+	return element->data[0] == '\0';
+}
+
 Element *create_empty_element() {
 	Element *element = malloc(sizeof(Element));
 	element->data[0] = '\0';
@@ -92,7 +96,7 @@ int insert_after_position(List *list, char *str, int p) {
 
 	while(list->tail != current && success != 0) {
 
-		if(current->data[0] == '\0' && ++current_p == p) {
+		if(is_empty_el(current) && ++current_p == p) {
 				List *new_list = create_list(str);
 				Element *empty_el = create_empty_element();
 
@@ -148,7 +152,7 @@ int remove_el(List *list, int p) {
 				}
 			}
 	}
-	*/	
+	*/
 	return success;
 }
 
@@ -160,7 +164,7 @@ void display(List *list) {
   Element *current = list->head;
 
   while(list->tail != current) {
-    if(current->data[0] == '\0') {
+    if(is_empty_el(current)) {
       printf("\n");
     } else {
       printf("%s", current->data);
