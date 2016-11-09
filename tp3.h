@@ -25,6 +25,10 @@ int is_empty_list(List *list);
  */
 int is_empty_el(Element *element);
 
+int remove_element(List *list, int p);
+
+void destruct_element(Element* el);
+
 void insert_empty_list(List *list, char *str);
 
 void insert_begining_list(List *list, char *str);
@@ -32,8 +36,6 @@ void insert_begining_list(List *list, char *str);
 void insert_end_list(List *list, char *str);
 
 int insert_after_position(List *list, char *str, int p);
-
-int remove_el(List *list, int p);
 
 void display(List *list);
 

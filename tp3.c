@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 void insert_empty_list(List *list, char *str) {
 	List *new_list = create_list(str);
 	Element *empty_el = create_empty_element();
@@ -127,11 +126,11 @@ int remove_element(List *list, int p){
 	int i;
 	Element *debut = list->head, *fin, *enCours = list->head;
 
-	if(is_empty_list(list))
+	if(is_empty_list(list) || p < 1)
 		return -1;
 	
 	for(i = 1; i < p;){
-		if(enCours != list->tail)
+		if(enCours == list->tail)
 			return -1;
 		if(is_empty_el(enCours)){
 			debut = enCours;
@@ -139,6 +138,7 @@ int remove_element(List *list, int p){
 		}
 		enCours = enCours->next;
 	}
+
 	
 	for(i = 0; !is_empty_el(enCours);){
 		fin = enCours;	
@@ -147,10 +147,15 @@ int remove_element(List *list, int p){
 	}
 	
 	debut->next = enCours->next;
+	if(p == 1){
+		list->head = debut->next;
+	}
+
 	if(enCours == list->tail){
 		list->tail = debut;
 		destruct_element(enCours);
 	}
+
 	return 0;
 }
 
