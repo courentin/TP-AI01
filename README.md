@@ -2,9 +2,9 @@
 
 - [ ] Fonctions :
   - [x] #1 : initialize
-  - [ ] #2 : insert_empty_list
+  - [x] #2 : insert_empty_list
   - [x] #3 : insert_begining_list
-  - [ ] #4 : insert_end_list
+  - [x] #4 : insert_end_list
   - [x] #5 : insert_after_position
   - [ ] #6 : remove
   - [x] #7 : compare

@@ -34,6 +34,16 @@ void insert_empty_list(List *list, char *str){
 }
 */
 
+void insert_empty_list(List *list, char *str) {
+	List *new_list = create_list(str);
+	Element *empty_el = create_empty_element();
+
+	new_list->tail->next = empty_el;
+	empty_el->next = list->head;
+	list->head = new_list->head;
+	list->tail = empty_el;
+}
+
 /**
  * Créer une List d'Elements à partir de str quelconque
  */
@@ -82,6 +92,16 @@ void insert_begining_list(List *list, char *str) {
 	list->head = new_list->head;
 }
 
+
+void insert_end_list(List *list, char *str) {
+	List *new_list = create_list(str);
+	Element *empty_el = create_empty_element();
+
+	list->tail->next = new_list->head;
+	new_list->tail->next = empty_el;
+	list->tail = empty_el;
+}
+
 List* initialize() {
 	List *list = malloc(sizeof(List));
   list->head = NULL;
@@ -125,7 +145,7 @@ int compare(char *str1, char *str2) {
 }
 
 int remove_el(List *list, int p) {
-	int current_p = 1, success = -1;
+	int success = -1;
 	/*
 	Element *current = list->head;
 
