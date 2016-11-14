@@ -2,38 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-void insert_empty_list(List *list, char *str){
-	int indice;
-	char* chaine = str;
-	char new_chaine;
-	char chiffre;
-	Element *elem;
-
-	elem = malloc(sizeof(Element));
-	list->head = elem;
-
-	while(chiffre != '\0'){
-
-		if(elem->next != NULL)
-			elem = elem->next;
-
-		chiffre = chaine[0];
-		new_chaine = malloc(5*sizeof(char));
-		for(indice=0; indice < N_MAX && chiffre != '\0'; indice++){
-			new_chaine[indice] = chiffre;
-			chiffre = chaine[1];
-		}
-
-		elem->data = new_chaine;
-		elem->next = malloc(sizeof(Element));
-	}
-
-
-	list->tail = elem;
-}
-*/
-
 void insert_empty_list(List *list, char *str) {
 	List *new_list = create_list(str);
 	Element *empty_el = create_empty_element();
@@ -46,6 +14,7 @@ void insert_empty_list(List *list, char *str) {
 /**
  * Créer une List d'Elements à partir de str quelconque
  */
+
 List * create_list(char *str) {
 	List * list = initialize();
 	Element *current = NULL, *old = NULL;
@@ -94,7 +63,6 @@ void insert_begining_list(List *list, char *str) {
 	empty_el->next = list->head;
 	list->head = new_list->head;
 }
-
 
 void insert_end_list(List *list, char *str) {
 	List *new_list = create_list(str);
@@ -154,6 +122,47 @@ int compare(char *str1, char *str2) {
 	} else {
 		return 0;
 	}
+}
+
+void destruct_element(Element* el){
+	free(el);
+}
+
+int remove_element(List *list, int p){
+	int i;
+	Element *debut = list->head, *fin, *enCours = list->head;
+
+	if(is_empty_list(list) || p < 1)
+		return -1;
+	
+	for(i = 1; i < p;){
+		if(enCours == list->tail)
+			return -1;
+		if(is_empty_el(enCours)){
+			debut = enCours;
+			i++;
+		}
+		enCours = enCours->next;
+	}
+
+	
+	for(i = 0; !is_empty_el(enCours);){
+		fin = enCours;	
+		enCours = enCours->next;
+		destruct_element(fin);
+	}
+	
+	debut->next = enCours->next;
+	if(p == 1){
+		list->head = debut->next;
+	}
+
+	if(enCours == list->tail){
+		list->tail = debut;
+		destruct_element(enCours);
+	}
+
+	return 0;
 }
 
 void display(List *list) {
