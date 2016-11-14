@@ -9,12 +9,31 @@ void askNumber(char *input) {
   }
 }
 
+int askNumberBetween(int min, int max) {
+  int success_read, choice;
+  fflush(stdin);
+  success_read = scanf("%d", &choice);
+  while(!success_read || choice < min || choice > max) {
+    printf("Action inconnue, réessayez :\n");
+    fflush(stdin);
+    char c = '0';
+    do {
+    c = getchar();
+    }
+    while (!isdigit(c));
+    ungetc(c, stdin);
+    success_read = scanf("%d", &choice);
+  }
+
+  return choice;
+}
+
 int main(int argc, char const *argv[]) {
   List *list = initialize();
   int quit = 0, choice;
-  char* input;
+  char* input = NULL;
 
-  while(quit != 1) {
+  while(!quit) {
     printf("Selectionner une action :\n");
     printf("  [1] ajouter un nombre en début de liste\n");
     printf("  [2] ajouter un nombre en fin de liste\n");
@@ -25,13 +44,7 @@ int main(int argc, char const *argv[]) {
     printf("  [7] détruire la liste toute entière\n");
     printf("  [8] quitter\n");
 
-    fflush(stdin);
-    scanf("%d", &choice);
-    while(choice < 1 || choice > 8) {
-      printf("Action inconnue, réessayez :\n");
-      fflush(stdin);
-      scanf("%d", &choice);
-    }
+    choice = askNumberBetween(1, 8);
 
     switch (choice) {
       case 1:
