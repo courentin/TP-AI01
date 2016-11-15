@@ -165,6 +165,10 @@ int remove_element(List *list, int p){
 	return 0;
 }
 
+void destruct(List* list){
+	while(remove_element(list, 1));
+}
+
 void display(List *list) {
   if(list->head == NULL) {
     printf("EMPTY LIST\n");
