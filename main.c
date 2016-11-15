@@ -1,28 +1,31 @@
 #include "tp3.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void askNumber(char *input) {
-  printf("Nombre à ajouter : ");
-  while(!scanf("%s", input)) {
-    printf("Erreur de saisie, ressaisir : ");
-  }
+  printf("Nombre à ajouter : \n");
+  read(0, input, sizeof(input));
+  int len = strlen(input);
+  input[len-1] = '\0';
+}
+
+void free_buffer() {
+  //  fflush(stdin);
+  char c = '0';
+  do {
+    c = getchar();
+  } while (!isdigit(c));
+  ungetc(c, stdin);
 }
 
 int askNumberBetween(int min, int max) {
-  int success_read, choice;
+  int choice;
+
   fflush(stdin);
-  success_read = scanf("%d", &choice);
-  while(!success_read || choice < min || choice > max) {
+  while(!scanf("%d", &choice) || choice < min || choice > max) {
     printf("Action inconnue, réessayez :\n");
-    fflush(stdin);
-    char c = '0';
-    do {
-    c = getchar();
-    }
-    while (!isdigit(c));
-    ungetc(c, stdin);
-    success_read = scanf("%d", &choice);
+    //free_buffer();
   }
 
   return choice;
@@ -31,7 +34,7 @@ int askNumberBetween(int min, int max) {
 int main(int argc, char const *argv[]) {
   List *list = initialize();
   int quit = 0, choice;
-  char* input = NULL;
+  char *input = malloc(256 * sizeof(char));
 
   while(!quit) {
     printf("Selectionner une action :\n");
