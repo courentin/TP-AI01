@@ -5,27 +5,26 @@
 
 void askNumber(char *input) {
   printf("Nombre à ajouter : \n");
-  read(0, input, sizeof(input));
+  free_buffer();
+  fgets(input, 256 * sizeof(char), stdin);
+
   int len = strlen(input);
   input[len-1] = '\0';
 }
 
 void free_buffer() {
-  //  fflush(stdin);
-  char c = '0';
-  do {
-    c = getchar();
-  } while (!isdigit(c));
-  ungetc(c, stdin);
+  int c = 0, i = 0;
+  while (c != '\n' && c != EOF) {
+      c = getchar();
+  }
 }
 
 int askNumberBetween(int min, int max) {
   int choice;
 
-  fflush(stdin);
   while(!scanf("%d", &choice) || choice < min || choice > max) {
+    free_buffer();
     printf("Action inconnue, réessayez :\n");
-    //free_buffer();
   }
 
   return choice;
@@ -76,13 +75,27 @@ int main(int argc, char const *argv[]) {
           int position;
           printf("Ajouter après la position : ");
           scanf("%d", &position);
+          free_buffer();
           if(!insert_after_position(list, input, position)) {
             printf("La position %d n'existe pas\n", position);
           }
         }
       break;
 
+      case 4:
+        printf("Supprimer l'élement : \n");
+        int position;
+        scanf("%d", &position);
+        free_buffer();
+        remove_element(list, position);
+
+      break;
+
       case 6: // Est affiché à chaque itérations
+      break;
+
+      case 7:
+        destruct(list);
       break;
 
       case 8:
