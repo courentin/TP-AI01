@@ -82,29 +82,25 @@ List* initialize() {
 }
 
 int insert_after_position(List *list, char *str, int p) {
-	int current_p = 0, success = -1;
+	int current_p = 0, success = 0;
 	Element *current = list->head;
 
-	while(list->tail != current && success != 0) {
-		printf("empty ? : %d\n", is_empty_el(current));
-		printf("current_p ? : %d\n", current_p+1);
-		printf("p ? : %d\n", p);
-		if(is_empty_el(current->next) && ++current_p == p) {
+	while(current != NULL && !success) {
+		if(is_empty_el(current) && ++current_p == p) {
+				// On place le nouvel élement après current
 				List *new_list = create_list(str);
 				Element *empty_el = create_empty_element();
 
-				current->next = new_list->head;
-				new_list->tail->next = empty_el;
-				empty_el->next = current->next;
-				list->tail = empty_el;
-
-				// si on ajoute à la dernière place, modifier le tail
-				printf("JE PASSE ICI\n");
-				if(list->tail == current->next) {
-					printf("JE PASSE LÀ\n");
+				if(current->next == NULL) {
+						// on ajoute à la dernière place
+						list->tail = empty_el;
 				}
 
-				success = 0;
+				empty_el->next = current->next;
+				new_list->tail->next = empty_el;
+				current->next = new_list->head;
+
+				success = 1;
 		}
 		current = current->next;
 	}
@@ -133,25 +129,27 @@ int remove_element(List *list, int p){
 	Element *debut = list->head, *fin, *enCours = list->head;
 
 	if(is_empty_list(list) || p < 1)
-		return -1;
-	
+		return 0;
+
 	for(i = 1; i < p;){
 		if(enCours == list->tail)
-			return -1;
+			return 0;
 		if(is_empty_el(enCours)){
 			debut = enCours;
 			i++;
 		}
 		enCours = enCours->next;
 	}
+	// enCours : premier element à supprimer
+	// debut : elmt vide avant enCours ou = enCours
 
-	
-	for(i = 0; !is_empty_el(enCours);){
-		fin = enCours;	
+	// On supprime les elmt d'indice p
+	while(!is_empty_el(enCours)) {
+		fin = enCours;
 		enCours = enCours->next;
-		destruct_element(fin);
+			destruct_element(fin);
 	}
-	
+
 	debut->next = enCours->next;
 	if(p == 1){
 		list->head = debut->next;
@@ -162,7 +160,12 @@ int remove_element(List *list, int p){
 		destruct_element(enCours);
 	}
 
-	return 0;
+	if(list->head == list->tail) {
+		list->head = NULL;
+		list->tail = NULL;
+	}
+
+	return 1;
 }
 
 void destruct(List* list){

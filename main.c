@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+
+void free_buffer();
 
 void askNumber(char *input) {
   printf("Nombre à ajouter : \n");
@@ -13,7 +16,7 @@ void askNumber(char *input) {
 }
 
 void free_buffer() {
-  int c = 0, i = 0;
+  int c = 0;
   while (c != '\n' && c != EOF) {
       c = getchar();
   }
@@ -76,7 +79,9 @@ int main(int argc, char const *argv[]) {
           printf("Ajouter après la position : ");
           scanf("%d", &position);
           free_buffer();
-          if(!insert_after_position(list, input, position)) {
+          if(position == 0) {
+            insert_begining_list(list, input);
+          } else if(!insert_after_position(list, input, position)) {
             printf("La position %d n'existe pas\n", position);
           }
         }
