@@ -124,13 +124,16 @@ void destruct_element(Element* el){
 	free(el);
 }
 
+/*Retourne 0 en cas d'erreur et 1 en cas de succès*/
 int remove_element(List *list, int p){
 	int i;
 	Element *debut = list->head, *fin, *enCours = list->head;
+	/*debut et enCours son initialisée avec la tete de la liste*/
 
 	if(is_empty_list(list) || p < 1)
 		return 0;
 
+	
 	for(i = 1; i < p;){
 		if(enCours == list->tail)
 			return 0;
@@ -140,30 +143,36 @@ int remove_element(List *list, int p){
 		}
 		enCours = enCours->next;
 	}
-	// enCours : premier element à supprimer
-	// debut : elmt vide avant enCours ou = enCours
+	/* Si il existe un element d'indice p
+		Si p > 1
+			enCours : premier element à supprimer
+			debut : elmt vide avant enCours
+		Sinon si p == 1
+			edebut = nCours : premier element à supprimer */
 
-	// On supprime les elmt d'indice p
+	/* On supprime les elmt d'indice p */
 	while(!is_empty_el(enCours)) {
 		fin = enCours;
 		enCours = enCours->next;
-			destruct_element(fin);
+		destruct_element(fin);
 	}
-
-	debut->next = enCours->next;
+	/*	enCours : Element vide apres les elements d'indice p qui 
+			  viennent d'être supprimés
+	*/
+	
+	if(debut != NULL)
+		debut->next = enCours->next;
 	if(p == 1){
-		list->head = debut->next;
+		list->head = enCours->next;
 	}
 
-	if(enCours == list->tail){
-		list->tail = debut;
-		destruct_element(enCours);
-	}
-
-	if(list->head == list->tail) {
-		list->head = NULL;
+	if(p == 1 && enCours == list->tail){
 		list->tail = NULL;
+	} else if(enCours == list->tail){
+		list->tail = debut;
 	}
+
+	destruct_element(enCours);
 
 	return 1;
 }
