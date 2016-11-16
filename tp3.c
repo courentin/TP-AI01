@@ -1,6 +1,7 @@
 #include "tp3.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void insert_empty_list(List *list, char *str) {
 	List *new_list = create_list(str);
@@ -180,6 +181,68 @@ int remove_element(List *list, int p){
 void destruct(List* list){
 	while(remove_element(list, 1));
 }
+	
+int getNumber(List* list, char* number, int p){
+	int i = 1;
+	char* tmp;
+	Element* current = list->head;
+	bzero(number, sizeof(number));
+
+	if(p < 1 || is_empty_list(list)) return 0;
+
+	while(current != list->tail){
+		if(is_empty_el(current)){
+			current = current->next;
+			if(i == p)
+				return 1;
+			i++;
+		}
+		
+		if(i == p){
+			tmp = (char*)malloc(255 * sizeof(char));
+			bzero(tmp, 255*sizeof(char));
+
+			strcpy(tmp, current->data);
+			strcat(number, tmp);
+		}
+		current = current->next;
+	}
+	if(i < p)
+		return 0;
+}
+
+int getMax(List* list, char* number, int* indice){
+	int i;
+	char* tmp = (char*) malloc(255 * sizeof(char));
+
+	if(is_empty_list(list)){
+		free(tmp);
+		return 0;
+	}
+
+	bzero(number, sizeof(number));
+	bzero(tmp, 255*sizeof(char));
+	number[0] = '-';
+	number[1] = '1';
+
+	for(i = 1; getNumber(list, tmp, i); i++){
+		printf("\n\n compare(tmp = \"%s\", number = \"%s\")\n\n", tmp, number);
+		if(compare(tmp, number) == 1){
+			free(number);
+			*indice = i;
+			number = tmp;
+			tmp = (char*) malloc(255 * sizeof(char));
+			bzero(tmp, 255*sizeof(char));
+		} else {
+			free(tmp);
+			tmp = (char*) malloc(255 * sizeof(char));
+			bzero(tmp, 255*sizeof(char));
+		}
+	}
+	return 1;
+} 
+
+
 
 void display(List *list) {
   if(list->head == NULL) {

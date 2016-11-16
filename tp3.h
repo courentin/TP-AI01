@@ -45,6 +45,10 @@ void destruct(List* list);
 
 void insert_empty_list (List *list, char *str);
 
+int getNumber(List* list, char* number, int p);
+
+int getMax(List* list, char* number, int* indice);
+
 Element *get_element_at_position(List *list, int p);
 
 #endif

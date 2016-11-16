@@ -95,6 +95,16 @@ int main(int argc, char const *argv[]) {
         remove_element(list, position);
 
       break;
+	
+      case 5:
+        printf("Plus grand de la liste : \n");
+	char* nombre = (char*)malloc(255 * sizeof(char));
+	int sr_indice;
+	if(getMax(list, nombre, &sr_indice))
+		printf("\n\n[%d] --> %s\n\n", sr_indice, nombre);
+	else
+		printf("\n\nLa liste est vide\n\n");
+      break;
 
       case 6: // Est affiché à chaque itérations
       break;
