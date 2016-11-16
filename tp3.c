@@ -214,23 +214,24 @@ int getNumber(List* list, char* number, int p){
 int getMax(List* list, char* number, int* indice){
 	int i;
 	char* tmp = (char*) malloc(255 * sizeof(char));
+	char* num = (char*) malloc(255 * sizeof(char));
 
 	if(is_empty_list(list)){
 		free(tmp);
 		return 0;
 	}
 
-	bzero(number, sizeof(number));
+	bzero(num, sizeof(num));
 	bzero(tmp, 255*sizeof(char));
-	number[0] = '-';
-	number[1] = '1';
+
+	num[0] = '-';
+	num[1] = '1';
 
 	for(i = 1; getNumber(list, tmp, i); i++){
-		printf("\n\n compare(tmp = \"%s\", number = \"%s\")\n\n", tmp, number);
-		if(compare(tmp, number) == 1){
-			free(number);
+		if(compare(tmp, num) == 1){
+			free(num);
 			*indice = i;
-			number = tmp;
+			num = tmp;
 			tmp = (char*) malloc(255 * sizeof(char));
 			bzero(tmp, 255*sizeof(char));
 		} else {
@@ -239,10 +240,41 @@ int getMax(List* list, char* number, int* indice){
 			bzero(tmp, 255*sizeof(char));
 		}
 	}
+	strcpy(number, num);
 	return 1;
 } 
 
+int sort(List* list){
+	char* nombre = (char*)malloc(255 * sizeof(char));
+	bzero(nombre, 255 * sizeof(char));
+	int indice = 0;
+	List* new_list = initialize();
 
+	if(is_empty_list(list)){
+		return 0;
+	}
+	
+	if(getMax(list, nombre, &indice)){
+		printf("\ncreate_list(\"%s\") //indice = %d\n", nombre, indice);
+		insert_empty_list(new_list, nombre);
+		remove_element(list, indice);
+	}
+	nombre = (char*)malloc(255 * sizeof(char));
+	bzero(nombre, 255 * sizeof(char));
+
+	while(getMax(list, nombre, &indice)){
+		printf("\ninsert_begining_list(new_list, \"%s\") //indice = %d\n", nombre, indice);
+		insert_begining_list(new_list, nombre);	
+		remove_element(list, indice);
+		nombre = (char*)malloc(255 * sizeof(char));
+		bzero(nombre, 255 * sizeof(char));
+	}
+	
+	list->head = new_list->head;
+	list->tail = new_list->tail;
+
+	return 1;
+}
 
 void display(List *list) {
   if(list->head == NULL) {

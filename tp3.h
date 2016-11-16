@@ -49,6 +49,8 @@ int getNumber(List* list, char* number, int p);
 
 int getMax(List* list, char* number, int* indice);
 
+int sort(List* list);
+
 Element *get_element_at_position(List *list, int p);
 
 #endif
