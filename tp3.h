@@ -53,4 +53,6 @@ int sort(List* list);
 
 Element *get_element_at_position(List *list, int p);
 
+void sum(List * list);
+
 #endif

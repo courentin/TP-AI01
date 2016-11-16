@@ -134,7 +134,7 @@ int remove_element(List *list, int p){
 	if(is_empty_list(list) || p < 1)
 		return 0;
 
-	
+
 	for(i = 1; i < p;){
 		if(enCours == list->tail)
 			return 0;
@@ -157,10 +157,10 @@ int remove_element(List *list, int p){
 		enCours = enCours->next;
 		destruct_element(fin);
 	}
-	/*	enCours : Element vide apres les elements d'indice p qui 
+	/*	enCours : Element vide apres les elements d'indice p qui
 			  viennent d'être supprimés
 	*/
-	
+
 	if(debut != NULL)
 		debut->next = enCours->next;
 	if(p == 1){
@@ -181,7 +181,7 @@ int remove_element(List *list, int p){
 void destruct(List* list){
 	while(remove_element(list, 1));
 }
-	
+
 int getNumber(List* list, char* number, int p){
 	int i = 1;
 	char* tmp;
@@ -197,7 +197,7 @@ int getNumber(List* list, char* number, int p){
 				return 1;
 			i++;
 		}
-		
+
 		if(i == p){
 			tmp = (char*)malloc(255 * sizeof(char));
 			bzero(tmp, 255*sizeof(char));
@@ -242,7 +242,7 @@ int getMax(List* list, char* number, int* indice){
 	}
 	strcpy(number, num);
 	return 1;
-} 
+}
 
 int sort(List* list){
 	char* nombre = (char*)malloc(255 * sizeof(char));
@@ -253,7 +253,7 @@ int sort(List* list){
 	if(is_empty_list(list)){
 		return 0;
 	}
-	
+
 	if(getMax(list, nombre, &indice)){
 		printf("\ncreate_list(\"%s\") //indice = %d\n", nombre, indice);
 		insert_empty_list(new_list, nombre);
@@ -264,16 +264,38 @@ int sort(List* list){
 
 	while(getMax(list, nombre, &indice)){
 		printf("\ninsert_begining_list(new_list, \"%s\") //indice = %d\n", nombre, indice);
-		insert_begining_list(new_list, nombre);	
+		insert_begining_list(new_list, nombre);
 		remove_element(list, indice);
 		nombre = (char*)malloc(255 * sizeof(char));
 		bzero(nombre, 255 * sizeof(char));
 	}
-	
+
 	list->head = new_list->head;
 	list->tail = new_list->tail;
 
 	return 1;
+}
+
+void sum(List * list) {
+	int sum = 0;
+	char *number = malloc(256 * sizeof(char));
+	number[0] = '\0';
+	Element *current = list->head;
+	while(current != NULL) {
+
+		printf("---->%s<----\n", number);
+		if(is_empty_el(current)) {
+			sum += atoi(number);
+			number = malloc(256 * sizeof(char));
+		} else {
+			strcat(number, current->data);
+		}
+		current = current->next;
+	}
+	printf("%d\n", sum);
+	number = malloc(256 * sizeof(char));
+	sprintf(number,"%ld", sum);
+	insert_end_list(list, number);
 }
 
 void display(List *list) {

@@ -47,9 +47,10 @@ int main(int argc, char const *argv[]) {
     printf("  [5] trier la liste par ordre croissant\n");
     printf("  [6] afficher la liste\n");
     printf("  [7] détruire la liste toute entière\n");
-    printf("  [8] quitter\n");
+    printf("  [8] sommer les élements\n");
+    printf("  [9] quitter\n");
 
-    choice = askNumberBetween(1, 8);
+    choice = askNumberBetween(1, 9);
 
     switch (choice) {
       case 1:
@@ -95,7 +96,7 @@ int main(int argc, char const *argv[]) {
         remove_element(list, position);
 
       break;
-	
+
       case 5:
 	sort(list);
       break;
@@ -108,6 +109,10 @@ int main(int argc, char const *argv[]) {
       break;
 
       case 8:
+        sum(list);
+      break;
+
+      case 9:
         quit = 1;
       break;
 
