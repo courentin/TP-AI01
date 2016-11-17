@@ -109,7 +109,8 @@ int main(int argc, char const *argv[]) {
       break;
 
       case 8:
-        sum(list);
+        if(!is_empty_list(list))
+          sum(list);
       break;
 
       case 9:
