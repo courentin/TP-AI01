@@ -98,7 +98,7 @@ int main(int argc, char const *argv[]) {
       break;
 
       case 5:
-	sort(list);
+	       sort(list);
       break;
 
       case 6: // Est affiché à chaque itérations
@@ -128,30 +128,6 @@ int main(int argc, char const *argv[]) {
       printf("-----------------\n");
     }
   }
-
-  return 0;
-
-  insert_empty_list(list, "77777");
-  insert_begining_list(list, "123456789");
-  insert_begining_list(list, "123");
-  insert_end_list(list, "5555555");
-
-  display(list);
-
-  insert_after_position(list, "0000", 2);
-  //display(list);
-
-  // #7
-  int comp1 = compare("1234", "1234");
-  int comp2 = compare("2234", "1234");
-  int comp3 = compare("1234", "2234");
-
-  if(comp1 == 0 && comp2 == 1 && comp3 == 2)
-    printf("[7] OK\n");
-  else
-    printf("[7] KO\n");
-
-
 
   return 0;
 }

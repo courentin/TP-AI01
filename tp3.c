@@ -186,7 +186,7 @@ int getNumber(List* list, char* number, int p){
 	int i = 1;
 	char* tmp;
 	Element* current = list->head;
-	bzero(number, sizeof(number));
+	bzero(number, (int)sizeof(number));
 
 	if(p < 1 || is_empty_list(list)) return 0;
 
@@ -209,6 +209,7 @@ int getNumber(List* list, char* number, int p){
 	}
 	if(i < p)
 		return 0;
+	return 1;
 }
 
 int getMax(List* list, char* number, int* indice){
@@ -221,7 +222,7 @@ int getMax(List* list, char* number, int* indice){
 		return 0;
 	}
 
-	bzero(num, sizeof(num));
+	bzero(num, (int)sizeof(num));
 	bzero(tmp, 255*sizeof(char));
 
 	num[0] = '-';
@@ -283,7 +284,6 @@ void sum(List * list) {
 	Element *current = list->head;
 	while(current != NULL) {
 
-		printf("---->%s<----\n", number);
 		if(is_empty_el(current)) {
 			sum += atoi(number);
 			number = malloc(256 * sizeof(char));
@@ -294,7 +294,7 @@ void sum(List * list) {
 	}
 	printf("%d\n", sum);
 	number = malloc(256 * sizeof(char));
-	sprintf(number,"%ld", sum);
+	sprintf(number,"%d", sum);
 	insert_end_list(list, number);
 }
 
